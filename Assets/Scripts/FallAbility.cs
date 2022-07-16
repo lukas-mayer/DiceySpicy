@@ -7,11 +7,26 @@ public class FallAbility : MonoBehaviour
     private static List<FallAbility> fallingObjects = new List<FallAbility>();
 
     public Vector3 startFallPosition = Vector3.zero;
+    public float maxSpeed = 20f;
 
     public Stack<Vector3> positions = new Stack<Vector3>();
     public bool isFalling = false;
 
-    public IEnumerator Fall()
+    public IEnumerator FallToNextStage()
+    {
+        print("Fall!");
+        isFalling = true;
+        float startTime = Time.time;
+        float fallingSpeed = 0;
+        while (isFalling)
+        {
+            fallingSpeed = Mathf.Clamp(fallingSpeed + Time.deltaTime * 3f, 0, maxSpeed);
+            transform.Translate(Vector3.down * Time.deltaTime * fallingSpeed, Space.World);
+            yield return null;
+        }
+    }
+
+    public IEnumerator Fall(bool ignoreGround = false)
     {
         fallingObjects.Add(this);
 

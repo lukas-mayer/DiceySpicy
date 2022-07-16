@@ -9,6 +9,8 @@ public class MainCamera : MonoBehaviour
     private Vector3 offset;
     private float distanceToPlayer;
     private bool isRotating = false;
+
+    public bool ignoreYMovement = true;
     public bool IsRotating => isRotating;
 
     private float currentAngle = 0;
@@ -26,7 +28,10 @@ public class MainCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position = player.position.Flaten() + offset;
+        if (ignoreYMovement)
+        {
+            transform.position = player.position.Flaten() + offset;
+        }
     }
 
     public IEnumerator RotateRight()

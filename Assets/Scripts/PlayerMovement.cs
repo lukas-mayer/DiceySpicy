@@ -98,6 +98,9 @@ public class PlayerMovement : MonoBehaviour
             if (hit.transform.gameObject.GetComponent<WinningZone>() && hit.transform.gameObject.GetComponent<WinningZone>().CheckWinningCondition())
             {
                 print("LVL FINISHED!");
+                cam.GetComponent<MainCamera>().ignoreYMovement = false;
+                cam.transform.parent = transform;
+                StartCoroutine(fallAbility.FallToNextStage());
             }
 
             hit.transform.gameObject.GetComponent<BreakableGroundTile>()?.OnContact();
