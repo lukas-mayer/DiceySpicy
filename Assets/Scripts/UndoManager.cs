@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +9,6 @@ public class UndoManager : MonoBehaviour
 
     public Stack<StackData> undoStack = new Stack<StackData>();
 
-    public Stack<Stack<Action<Vector3>>> undos = new Stack<Stack<Action<Vector3>>>();
-
     private void Awake()
     {
         Instance = this;
@@ -18,16 +16,20 @@ public class UndoManager : MonoBehaviour
 
     public void AddMove(Vector3 direction)
     {
-        undoStack.Push(new StackData(direction, null));
+        undoStack.Push(new StackData(direction));
     }
 
 
-    public void Undo()
+    public IEnumerator Undo()
     {
         if (undoStack.Count > 0)
         {
             StackData stackData = undoStack.Pop();
 
+            if (stackData.fallAbility != null)
+            {
+                yield return stackData.fallAbility.Unfall();
+            }
 
             stackData.breakableGroundTile?.Undo();
             movement.Move(stackData.direction, undoable: false);
@@ -39,10 +41,10 @@ public class StackData
 {
     public Vector3 direction;
     public BreakableGroundTile breakableGroundTile;
+    public FallAbility fallAbility;
 
-    public StackData(Vector3 direction, BreakableGroundTile breakableGroundTile)
+    public StackData(Vector3 direction)
     {
         this.direction = direction;
-        this.breakableGroundTile = breakableGroundTile;
     }
 }

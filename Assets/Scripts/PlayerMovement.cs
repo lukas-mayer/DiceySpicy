@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private MainCamera cam;
-    private FallAbility fallAbility;
+    public FallAbility fallAbility;
 
     private void Awake()
     {
@@ -93,12 +93,13 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(rotationAxis, maxAngle, Space.World);
 
 
-        StartCoroutine(fallAbility.Fall());
-
-
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
         {
             hit.transform.gameObject.GetComponent<BreakableGroundTile>()?.OnContact();
+        }
+        else
+        {
+            StartCoroutine(fallAbility.Fall());
         }
 
         yield return new WaitWhile(FallAbility.AreObjectsFalling);
