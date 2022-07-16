@@ -3,6 +3,8 @@ using UnityEngine;
 public class BreakableGroundTile : MonoBehaviour
 {
     public int lifes = 1;
+    [SerializeField] GameObject fallingGroundTile;
+    private float timeToLiveOfFragments = 1f;
 
     public void OnContact()
     {
@@ -22,8 +24,11 @@ public class BreakableGroundTile : MonoBehaviour
 
     private void Break()
     {
+        GameObject fallingGroundTileInstance = Instantiate(fallingGroundTile, transform.position, transform.rotation);
+        Destroy(fallingGroundTileInstance, timeToLiveOfFragments);
         gameObject.SetActive(false);
     }
+
 
     public void Undo()
     {
