@@ -95,8 +95,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
         {
+            if (hit.transform.gameObject.GetComponent<WinningZone>() && hit.transform.gameObject.GetComponent<WinningZone>().CheckWinningCondition())
+            {
+                print("LVL FINISHED!");
+            }
+
             hit.transform.gameObject.GetComponent<BreakableGroundTile>()?.OnContact();
-            hit.transform.gameObject.GetComponent<ColoredGroundTile>()?.OnContact();
+
+            if (undoable)
+            {
+                hit.transform.gameObject.GetComponent<ColoredGroundTile>()?.OnContact();
+            }
         }
         else
         {
@@ -106,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitWhile(FallAbility.AreObjectsFalling);
 
         isMoving = false;
-        print(DiceTop.Instance.GetNumber());
     }
 
     private bool CanMove(Vector3 direction)

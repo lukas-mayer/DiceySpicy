@@ -31,6 +31,7 @@ public class UndoManager : MonoBehaviour
                 yield return stackData.fallAbility.Unfall();
             }
 
+            stackData.coloredGroundTile?.Undo();
             stackData.breakableGroundTile?.Undo();
             movement.Move(stackData.direction, undoable: false);
         }
@@ -42,6 +43,7 @@ public class StackData
     public Vector3 direction;
     public BreakableGroundTile breakableGroundTile;
     public FallAbility fallAbility;
+    public ColoredGroundTile coloredGroundTile;
 
     public StackData(Vector3 direction)
     {
