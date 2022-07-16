@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class ColoredGroundTile : MonoBehaviour
 {
+    public MeshRenderer colorSpash;
     public DiceColor color;
     public int lifes = 1;
+
+    private void Awake()
+    {
+        Material colorSplashMaterial = colorSpash.material;
+        colorSplashMaterial.color = GetColor(color);
+    }
 
     public void OnContact()
     {
