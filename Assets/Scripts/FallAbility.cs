@@ -30,6 +30,7 @@ public class FallAbility : MonoBehaviour
             transform.Translate(fallingSpeed * Time.deltaTime * Vector3.down, Space.World);
             yield return null;
         }
+
         SceneLoader.LoadNextScene();
     }
 

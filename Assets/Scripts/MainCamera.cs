@@ -13,13 +13,31 @@ public class MainCamera : MonoBehaviour
     public bool ignoreYMovement = true;
     public bool IsRotating => isRotating;
 
-    private float currentAngle = 0;
+    public float currentAngle = 0;
 
     private void Awake()
     {
         transform = GetComponent<Transform>();
-        offset = transform.position - player.position;
+
+        if (CameraAngle.Instance.offset == null)
+        {
+            offset = transform.position - player.position;
+        }
+        else
+        {
+            offset = (Vector3)CameraAngle.Instance.offset;
+        }
+
+        currentAngle = CameraAngle.Instance.angle;
+
         distanceToPlayer = Vector3.Magnitude(offset.Flaten());
+        transform.position = player.position + offset;
+    }
+
+    private void Start()
+    {
+
+        transform.rotation = CameraAngle.Instance.quaternion;
     }
 
     private void LateUpdate()
@@ -48,6 +66,9 @@ public class MainCamera : MonoBehaviour
         transform.rotation = initialRotation;
         transform.Rotate(Vector3.up, -90, Space.World);
 
+        CameraAngle.Instance.angle = currentAngle;
+        CameraAngle.Instance.offset = offset;
+        CameraAngle.Instance.quaternion = transform.rotation;
         isRotating = false;
     }
 
@@ -69,6 +90,9 @@ public class MainCamera : MonoBehaviour
         transform.rotation = initialRotation;
         transform.Rotate(Vector3.up, 90, Space.World);
 
+        CameraAngle.Instance.angle = currentAngle;
+        CameraAngle.Instance.offset = offset;
+        CameraAngle.Instance.quaternion = transform.rotation;
         isRotating = false;
     }
 
