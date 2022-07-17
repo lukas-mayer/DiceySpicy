@@ -50,6 +50,7 @@ public class DiceTop : MonoBehaviour
         material6.color = Color.white;
     }
 
+
     private Vector3 GetSideUp()
     {
         Vector3 upSide = Vector3.zero;

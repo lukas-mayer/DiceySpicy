@@ -18,10 +18,6 @@ public class MainCamera : MonoBehaviour
     private void Awake()
     {
         transform = GetComponent<Transform>();
-    }
-
-    private void Start()
-    {
         offset = transform.position - player.position;
         distanceToPlayer = Vector3.Magnitude(offset.Flaten());
     }

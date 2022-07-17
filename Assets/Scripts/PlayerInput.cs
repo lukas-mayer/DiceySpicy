@@ -34,7 +34,6 @@ public class PlayerInput : MonoBehaviour
         }
         else if (isAlive)
         {
-
             if (Input.GetKey(KeyCode.W))
             {
                 movement.MoveForward();
