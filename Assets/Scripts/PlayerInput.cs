@@ -66,6 +66,7 @@ public class PlayerInput : MonoBehaviour
                 undoStartTime = Time.time;
             }
             isAlive = true;
+            UndoHint.Instance.Deactivate();
             StartCoroutine(UndoManager.Instance.Undo());
         }
     }

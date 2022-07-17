@@ -10,9 +10,16 @@ public class CameraAngle : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(this);
-        quaternion = Camera.main.transform.rotation;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+            quaternion = Camera.main.transform.rotation;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
 

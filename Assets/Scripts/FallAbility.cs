@@ -81,9 +81,10 @@ public class FallAbility : MonoBehaviour
                 Mathf.Round(transform.position.y),
                 transform.position.z);
 
-        if (Time.time - startTime >= 1)
+        if (Time.time - startTime >= 1.5)
         {
             PlayerInput.Instance.isAlive = false;
+            UndoHint.Instance.Activate();
         }
         UndoManager.Instance.undoStack.Peek().fallAbility = this;
 
