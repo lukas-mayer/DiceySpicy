@@ -67,7 +67,7 @@ public class FallAbility : MonoBehaviour
         startFallPosition = transform.position;
 
         float startTime = Time.time;
-        while (!Physics.Raycast(transform.position, Vector3.down, 0.5f) && Time.time - startTime < 1)
+        while (!Physics.Raycast(transform.position, Vector3.down, 0.5f) && Time.time - startTime < 1.5)
         {
             positions.Push(transform.position);
             transform.position = new Vector3(
