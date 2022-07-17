@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class WinningZone : MonoBehaviour
 {
+    public static WinningZone Instance;
+
     public List<DiceColor> requiredSideColors;
     public List<bool> areSidesCorrect;
     private MeshRenderer meshRenderer;
 
     private void Awake()
     {
+        Instance = this;
         meshRenderer = GetComponent<MeshRenderer>();
     }
 

@@ -19,6 +19,11 @@ public class MainCamera : MonoBehaviour
     {
         transform = GetComponent<Transform>();
 
+
+    }
+
+    private void Start()
+    {
         if (CameraAngle.Instance.offset == null)
         {
             offset = transform.position - player.position;
@@ -32,11 +37,6 @@ public class MainCamera : MonoBehaviour
 
         distanceToPlayer = Vector3.Magnitude(offset.Flaten());
         transform.position = player.position + offset;
-    }
-
-    private void Start()
-    {
-
         transform.rotation = CameraAngle.Instance.quaternion;
     }
 
